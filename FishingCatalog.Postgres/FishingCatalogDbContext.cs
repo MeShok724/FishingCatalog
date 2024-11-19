@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using FishingCatalog.Core;
+using FishingCatalog.Postgres.Configuration;
 
 namespace FishingCatalog.Postgres
 {
@@ -9,5 +10,16 @@ namespace FishingCatalog.Postgres
         public DbSet<Product> Products { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new UserConfiguretion());
+            modelBuilder.ApplyConfiguration(new RoleConfiguretion());
+            modelBuilder.ApplyConfiguration(new ProductConfiguretion());
+            modelBuilder.ApplyConfiguration(new CartConfiguretion());
+            base.OnModelCreating(modelBuilder);
+        }
+
+        public FishingCatalogDbContext(DbContextOptions<FishingCatalogDbContext> options) : base(options) { }
     } 
 }
