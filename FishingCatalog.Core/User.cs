@@ -8,13 +8,15 @@ namespace FishingCatalog.Core
 {
     public class User
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Email { get; set; }
-        public string PasswordHash { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public DateTime LastLogin { get; set;}
-        public bool IsActive { get; set; }
-        public int RoleId { get; set; }
+        public Guid Id { get; set; }
+        public string Name { get; set; } = String.Empty;
+        public string Email { get; set; } = String.Empty;
+        public string PasswordHash { get; set; } = String.Empty;
+        public DateTime CreatedAt { get; set; } = DateTime.MinValue;
+        public DateTime LastLogin { get; set;} = DateTime.MinValue;
+        public bool IsActive { get; set; } = false;
+        public Guid RoleId { get; set; }
+
+        public List<Cart> Carts { get; set; } = [];
     }
 }
