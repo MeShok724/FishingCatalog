@@ -1,0 +1,6 @@
+@FishingCatalog_HostAddress = http://localhost:5234
+
+GET {{FishingCatalog_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

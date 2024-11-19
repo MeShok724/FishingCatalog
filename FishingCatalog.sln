@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34511.84
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FishingCatalog.msCatalog", "FishingCatalog\FishingCatalog.msCatalog.csproj", "{7789418B-0052-4A16-A555-1E62C84B00F3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FishingCatalog.Core", "FishingCatalog.Core\FishingCatalog.Core.csproj", "{959B7746-55E0-4A40-96CE-438A1D3159C4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7789418B-0052-4A16-A555-1E62C84B00F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7789418B-0052-4A16-A555-1E62C84B00F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7789418B-0052-4A16-A555-1E62C84B00F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7789418B-0052-4A16-A555-1E62C84B00F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{959B7746-55E0-4A40-96CE-438A1D3159C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{959B7746-55E0-4A40-96CE-438A1D3159C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{959B7746-55E0-4A40-96CE-438A1D3159C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{959B7746-55E0-4A40-96CE-438A1D3159C4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3697C781-1153-4088-95CB-B219F666CD47}
+	EndGlobalSection
+EndGlobal
