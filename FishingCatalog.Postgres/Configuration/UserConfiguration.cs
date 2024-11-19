@@ -14,6 +14,10 @@ namespace FishingCatalog.Postgres.Configuration
             builder.HasMany(u => u.Carts)
                 .WithOne(c => c.User);
 
+            builder.HasOne(u => u.Role)
+                .WithMany(r => r.Users)
+                .HasForeignKey(u => u.RoleId);
+
         }
     }
 }

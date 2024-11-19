@@ -18,5 +18,6 @@ namespace FishingCatalog.Core
         public Guid RoleId { get; set; }
 
         public List<Cart> Carts { get; set; } = [];
+        public Role Role { get; set; }
     }
 }
