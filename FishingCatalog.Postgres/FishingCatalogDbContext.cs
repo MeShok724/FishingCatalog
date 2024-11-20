@@ -4,7 +4,7 @@ using FishingCatalog.Postgres.Configuration;
 
 namespace FishingCatalog.Postgres
 {
-    public class FishingCatalogDbContext : DbContext
+    public class FishingCatalogDbContext(DbContextOptions<FishingCatalogDbContext> options) : DbContext(options)
     {
         public DbSet<Cart> Carts { get; set; }
         public DbSet<Product> Products { get; set; }
@@ -19,7 +19,5 @@ namespace FishingCatalog.Postgres
             modelBuilder.ApplyConfiguration(new CartConfiguretion());
             base.OnModelCreating(modelBuilder);
         }
-
-        public FishingCatalogDbContext(DbContextOptions<FishingCatalogDbContext> options) : base(options) { }
-    } 
+    }
 }
