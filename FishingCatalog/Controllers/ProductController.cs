@@ -21,15 +21,19 @@ namespace FishingCatalog.msCatalog.Controllers
         [HttpPost]
         public async Task<ActionResult<Guid>> AddProduct([FromBody] ProductRequest product)
         {
-            var newProduct = new Product(
+            var newProduct = Product.Create(
                 Guid.NewGuid(),
                 product.Name,
                 product.Price,
                 product.Category,
                 product.Description,
                 product.Image);
-            await _productRepos.Add(newProduct);
-            return Ok(newProduct.Id);
+            if (newProduct.Item2 != null)
+            {
+                return BadRequest(newProduct.Item2);
+            }
+            await _productRepos.Add(newProduct.Item1);
+            return Ok(newProduct.Item1.Id);
         }
 
         [HttpGet("{id:Guid}")]
@@ -47,14 +51,18 @@ namespace FishingCatalog.msCatalog.Controllers
         [HttpPut("{id:Guid}")]
         public async Task<ActionResult<Guid>> Update(Guid id, [FromBody] ProductRequest product)
         {
-            var toUpdateProduct = new Product(
+            var toUpdateProduct = Product.Create(
                 id,
                 product.Name,
                 product.Price,
                 product.Category,
                 product.Description,
                 product.Image);
-            var dbResp = await _productRepos.Update(toUpdateProduct, id);
+            if (toUpdateProduct.Item2 != null)
+            {
+                return BadRequest(toUpdateProduct.Item2);
+            }
+            var dbResp = await _productRepos.Update(toUpdateProduct.Item1, id);
             return Ok(dbResp);
         }
 
