@@ -1,8 +1,9 @@
-using FishingCatalog.msCatalog.Repositories;
+using FishingCatalog.msUser.Repositories;
 using FishingCatalog.Postgres;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
 var configuration = builder.Configuration;
 
 builder.Services.AddControllers();
@@ -14,7 +15,8 @@ builder.Services.AddDbContext<FishingCatalogDbContext>(
         options.UseNpgsql(configuration.GetConnectionString(nameof(FishingCatalogDbContext)));
     });
 
-builder.Services.AddScoped<ProductRepository>();
+builder.Services.AddScoped<UserRepository>();
+builder.Services.AddScoped<RoleRepository>();
 
 var app = builder.Build();
 
@@ -27,7 +29,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
-app.MapControllers();
 
+app.MapControllers();
 
 app.Run();

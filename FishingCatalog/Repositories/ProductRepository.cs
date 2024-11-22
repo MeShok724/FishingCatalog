@@ -2,7 +2,7 @@
 using FishingCatalog.Postgres;
 using Microsoft.EntityFrameworkCore;
 
-namespace FishingCatalog.msCatalog
+namespace FishingCatalog.msCatalog.Repositories
 {
     public class ProductRepository(FishingCatalogDbContext dbContext)
     {

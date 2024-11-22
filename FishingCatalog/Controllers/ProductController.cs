@@ -1,5 +1,6 @@
 ﻿using FishingCatalog.Core;
 using FishingCatalog.msCatalog.Contracts;
+using FishingCatalog.msCatalog.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FishingCatalog.msCatalog.Controllers
