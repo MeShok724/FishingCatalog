@@ -35,6 +35,15 @@ namespace FishingCatalog.msCart.Repositories
         }
         public async Task<Guid> Add(Cart cart)
         {
+            User? user = await _context.Users
+                .FirstOrDefaultAsync(u => u.Id == cart.UserId);
+            Product? product = await _context.Products
+                .FirstOrDefaultAsync(p => p.Id == cart.ProductId);
+            if (product == null || user == null)
+            {
+                return Guid.Empty;
+            }
+
             await _context.Carts.AddAsync(cart);
             _context.SaveChanges();
             return cart.Id;

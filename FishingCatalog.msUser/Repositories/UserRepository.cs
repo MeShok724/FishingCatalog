@@ -76,6 +76,11 @@ namespace FishingCatalog.msUser.Repositories
 
         public async Task<Guid> Add(User user)
         {
+            var role = await _context.Roles
+                .FirstOrDefaultAsync(r => r.Id == user.RoleId);
+            if (role == null)
+                return Guid.Empty;
+
             await _context.Users.AddAsync(user);
             _context.SaveChanges();
             return user.Id;
@@ -83,6 +88,11 @@ namespace FishingCatalog.msUser.Repositories
 
         public async Task<Guid> Update(User user, Guid Id)
         {
+            var role = await _context.Roles
+                .FirstOrDefaultAsync(r => r.Id == user.RoleId);
+            if (role == null)
+                return Guid.Empty;
+
             await _context.Users
                 .Where(u => u.Id == Id)
                 .ExecuteUpdateAsync(u => u

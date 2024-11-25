@@ -86,8 +86,12 @@ namespace FishingCatalog.msUser.Controllers
                 Console.WriteLine(newUser.Item2);
                 return BadRequest(newUser.Item2);
             }
-            await _userRepos.Add(newUser.Item1);
-            return Ok(newUser.Item1.Id);
+            Guid id = await _userRepos.Add(newUser.Item1);
+
+            if (id == Guid.Empty)
+                return BadRequest(id);
+            else
+                return Ok(newUser.Item1.Id);
         }
 
         [HttpPut("{id:Guid}")]
@@ -107,8 +111,12 @@ namespace FishingCatalog.msUser.Controllers
             {
                 return BadRequest(toUpdateProduct.Item2);
             }
-            var dbResp = await _userRepos.Update(toUpdateProduct.Item1, id);
-            return Ok(dbResp);
+            Guid resp = await _userRepos.Update(toUpdateProduct.Item1, id);
+
+            if (resp == Guid.Empty)
+                return BadRequest(resp);
+            else
+                return Ok(resp);
         }
 
         [HttpPut("isActive/{id:Guid}/{isActive}")]

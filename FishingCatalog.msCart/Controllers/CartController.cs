@@ -40,8 +40,8 @@ namespace FishingCatalog.msCart.Controllers
                 DateTime.UtcNow
                 );
             
-            await _cartRepository.Add(cart);
-            return Ok(cart.Id);
+            Guid resp = await _cartRepository.Add(cart);
+            return resp != Guid.Empty ? Ok(resp) : BadRequest(resp);
         }
 
         [HttpPut("{id:Guid}")]
