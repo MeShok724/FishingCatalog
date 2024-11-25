@@ -13,6 +13,13 @@ namespace FishingCatalog.msUser.Repositories
                 .AsNoTracking()
                 .ToListAsync();
         }
+        public async Task<Guid> GetByName(string name)
+        {
+            var role = await _context.Roles
+                .AsNoTracking()
+                .FirstOrDefaultAsync(r => r.Name == name);
+            return role != null ? role.Id : Guid.Empty;
+        }
         public async Task<Guid> Add(Role role)
         {
             await _context.Roles.AddAsync(role);

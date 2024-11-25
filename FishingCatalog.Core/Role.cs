@@ -16,7 +16,9 @@ namespace FishingCatalog.Core
         {
             string error = string.Empty;
             if (string.IsNullOrEmpty(Name) || Name.Length > 30)
+            {
                 error = "Name can not be empty or longer then 30 symbols";
+            }
             Role role = new Role (Id, Name);
             return (role, error);
         }

@@ -17,12 +17,18 @@ namespace FishingCatalog.msUser.Controllers
             var dbResp = await _roleRepos.GetAll();
             return Ok(dbResp);
         }
+        [HttpGet("{name}")]
+        public async Task<ActionResult<Role>> GetByName(string name)
+        {
+            var dbResp = await _roleRepos.GetByName(name);
+            return Ok(dbResp);
+        }
 
         [HttpPost]
         public async Task<ActionResult<Guid>> Add([FromBody] string name)
         {
             var role = Role.Create(Guid.NewGuid(), name);
-            if (string.IsNullOrEmpty(role.Item2))
+            if (!string.IsNullOrEmpty(role.Item2))
             {
                 return BadRequest(role.Item2);
             }

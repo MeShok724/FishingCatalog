@@ -78,10 +78,11 @@ namespace FishingCatalog.msUser.Controllers
                 DateTime.UtcNow,
                 DateTime.UtcNow,
                 true,
-                Guid.NewGuid() //TODO: передавать Guid обычного пользователя
+                Guid.Parse("ddf03022070b4313a99eede095f6ac16") //TODO: передавать Guid обычного пользователя
                 );
-            if (newUser.Item2 != null)
+            if (!string.IsNullOrEmpty(newUser.Item2))
             {
+                Console.WriteLine(newUser.Item2);
                 return BadRequest(newUser.Item2);
             }
             await _userRepos.Add(newUser.Item1);
@@ -103,7 +104,7 @@ namespace FishingCatalog.msUser.Controllers
                 product.IsActive,
                 product.RoleId
                 );
-            if (toUpdateProduct.Item2 != null)
+            if (!string.IsNullOrEmpty(toUpdateProduct.Item2))
             {
                 return BadRequest(toUpdateProduct.Item2);
             }
