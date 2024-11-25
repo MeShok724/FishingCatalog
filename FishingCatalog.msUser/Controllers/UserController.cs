@@ -78,7 +78,7 @@ namespace FishingCatalog.msUser.Controllers
                 DateTime.UtcNow,
                 DateTime.UtcNow,
                 true,
-                Guid.Parse("ddf03022070b4313a99eede095f6ac16") //TODO: передавать Guid обычного пользователя
+                Guid.Parse("a84c57c2-f92b-4189-9d05-4293b259bf29") //TODO: передавать Guid обычного пользователя
                 );
             if (!string.IsNullOrEmpty(newUser.Item2))
             {

@@ -18,5 +18,14 @@ namespace FishingCatalog.Core
         public User User { get; set; }
         public Product Product { get; set; }
 
+        public Cart(Guid id, Guid userId, Guid productId, int quantity, DateTime addedAt, DateTime modifiedAt)
+        {
+            Id = id;
+            UserId = userId;
+            ProductId = productId;
+            Quantity = quantity;
+            AddedAt = addedAt;
+            ModifiedAt = modifiedAt;
+        }
     }
 }

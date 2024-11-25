@@ -76,16 +76,9 @@ namespace FishingCatalog.msUser.Repositories
 
         public async Task<Guid> Add(User user)
         {
-            try
-            {
-                await _context.Users.AddAsync(user);
-                _context.SaveChanges();
-                return user.Id;
-            }
-            catch
-            {
-                throw new Exception("Can not adding user in DB");
-            }
+            await _context.Users.AddAsync(user);
+            _context.SaveChanges();
+            return user.Id;
         }
 
         public async Task<Guid> Update(User user, Guid Id)

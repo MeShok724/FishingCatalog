@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FishingCatalog.Core", "Fish
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FishingCatalog.Postgres", "FishingCatalog.Postgres\FishingCatalog.Postgres.csproj", "{74DF9E19-9963-4178-8A42-445FF57D0E20}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FishingCatalog.msUser", "FishingCatalog.msUser\FishingCatalog.msUser.csproj", "{18672522-5129-405A-B7AD-58A772FD8524}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FishingCatalog.msUser", "FishingCatalog.msUser\FishingCatalog.msUser.csproj", "{18672522-5129-405A-B7AD-58A772FD8524}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FishingCatalog.msCart", "FishingCatalog.msCart\FishingCatalog.msCart.csproj", "{A7346A7B-3754-43BC-8F98-0A423CC2F00C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{18672522-5129-405A-B7AD-58A772FD8524}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{18672522-5129-405A-B7AD-58A772FD8524}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{18672522-5129-405A-B7AD-58A772FD8524}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7346A7B-3754-43BC-8F98-0A423CC2F00C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7346A7B-3754-43BC-8F98-0A423CC2F00C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7346A7B-3754-43BC-8F98-0A423CC2F00C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7346A7B-3754-43BC-8F98-0A423CC2F00C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

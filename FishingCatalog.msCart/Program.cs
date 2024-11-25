@@ -1,4 +1,4 @@
-using FishingCatalog.msUser.Repositories;
+using FishingCatalog.msCart.Repositories;
 using FishingCatalog.Postgres;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,9 +13,7 @@ builder.Services.AddDbContext<FishingCatalogDbContext>(
     {
         options.UseNpgsql(configuration.GetConnectionString(nameof(FishingCatalogDbContext)));
     });
-
-builder.Services.AddScoped<UserRepository>();
-builder.Services.AddScoped<RoleRepository>();
+builder.Services.AddScoped<CartRepository>();
 
 var app = builder.Build();
 
