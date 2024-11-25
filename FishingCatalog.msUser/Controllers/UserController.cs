@@ -47,9 +47,9 @@ namespace FishingCatalog.msUser.Controllers
             List<User> dbResp = [];
             if (field == "name")
                 dbResp = await _userRepos.SortByName(ask);
-            else if (field == "registrationtime")
+            else if (field == "registrationTime")
                 dbResp = await _userRepos.SortByRegistrationTime(ask);
-            else if (field == "lastlogintime")
+            else if (field == "lastLoginTime")
                 dbResp = await _userRepos.SortByLastLoginTime(ask);
 
             var resp = dbResp.Select(p => new UserResponse(
@@ -70,6 +70,7 @@ namespace FishingCatalog.msUser.Controllers
         [HttpPost]
         public async Task<ActionResult<Guid>> Add([FromBody] UserToAdd userRequest)
         {
+            Guid roleId = await _userRepos.GetDafaultRoleId();
             var newUser = Core.User.Create(
                 Guid.NewGuid(),
                 userRequest.Name,
@@ -78,7 +79,7 @@ namespace FishingCatalog.msUser.Controllers
                 DateTime.UtcNow,
                 DateTime.UtcNow,
                 true,
-                Guid.Parse("a84c57c2-f92b-4189-9d05-4293b259bf29") //TODO: передавать Guid обычного пользователя
+                roleId
                 );
             if (!string.IsNullOrEmpty(newUser.Item2))
             {
@@ -88,8 +89,6 @@ namespace FishingCatalog.msUser.Controllers
             await _userRepos.Add(newUser.Item1);
             return Ok(newUser.Item1.Id);
         }
-
-        
 
         [HttpPut("{id:Guid}")]
         public async Task<ActionResult<Guid>> Update(Guid id, [FromBody] UserToUpdate product)

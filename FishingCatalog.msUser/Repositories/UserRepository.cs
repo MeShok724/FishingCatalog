@@ -119,5 +119,12 @@ namespace FishingCatalog.msUser.Repositories
                 .ExecuteDeleteAsync();
             return Id;
         }
+
+        public async Task<Guid> GetDafaultRoleId()
+        {
+            Role? role = await _context.Roles
+                .FirstOrDefaultAsync(r => r.Name == "user");
+            return role != null ? role.Id : Guid.Empty;
+        }
     }
 }
