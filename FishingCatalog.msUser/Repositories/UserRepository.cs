@@ -74,16 +74,23 @@ namespace FishingCatalog.msUser.Repositories
                 .FirstOrDefaultAsync(p => p.Id == id);
         }
 
-        public async Task<Guid> Add(User user)
+        public async Task<(Guid, string)> Add(User user)
         {
             var role = await _context.Roles
                 .FirstOrDefaultAsync(r => r.Id == user.RoleId);
             if (role == null)
-                return Guid.Empty;
+                return (Guid.Empty, "Role not found");
+            if (! await CheckLogin(user.Name))
+                return (Guid.Empty, "A user with that name has already been registered");
+            var sameEmail = await _context.Users
+                .AsNoTracking()
+                .FirstOrDefaultAsync(u => u.Email == user.Email);
+            if (sameEmail != null)
+                return (Guid.Empty, "A user with that email has already been registered");
 
             await _context.Users.AddAsync(user);
             _context.SaveChanges();
-            return user.Id;
+            return (user.Id, string.Empty);
         }
 
         public async Task<Guid> Update(User user, Guid Id)
@@ -135,6 +142,13 @@ namespace FishingCatalog.msUser.Repositories
             Role? role = await _context.Roles
                 .FirstOrDefaultAsync(r => r.Name == "user");
             return role != null ? role.Id : Guid.Empty;
+        }
+        private async Task<bool> CheckLogin(string name)
+        {
+            var dbResp = await _context.Users
+                .AsNoTracking()
+                .FirstOrDefaultAsync (u => u.Name == name);
+            return dbResp == null ? true : false;
         }
     }
 }

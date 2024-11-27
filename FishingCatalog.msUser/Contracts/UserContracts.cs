@@ -24,5 +24,10 @@
         bool IsActive,
         Guid RoleId
         );
+    public record RegistrationRequest(
+            string Name,
+            string Email,
+            string Password
+            );
 
 }

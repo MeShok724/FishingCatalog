@@ -39,7 +39,6 @@ namespace FishingCatalog.Core
             DateTime CreatedAt, DateTime LastLogin, bool IsActive, Guid RoleId)
         {
             string error = string.Empty;
-            //TODO: проверка RoleId
             if (string.IsNullOrEmpty(Name) || Name.Length > NAME_MAX_LENGTH) {
                 error = "Name can not be empty or longer then 100 symbols";
             } else if (string.IsNullOrEmpty(Email) || Email.Length > EMAIL_MAX_LENGTH)
