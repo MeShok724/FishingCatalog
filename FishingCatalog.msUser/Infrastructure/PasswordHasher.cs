@@ -1,4 +1,4 @@
-﻿namespace FishinfCatalog.msAuthorization
+﻿namespace FishingCatalog.msUser.Infrastructure
 {
     public class PasswordHasher
     {

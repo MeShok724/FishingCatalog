@@ -26,6 +26,13 @@ namespace FishingCatalog.msUser.Repositories
             }
             return dbResponse.Users;
         }
+        public async Task<User?> GetByEmail(string email)
+        {
+            var dbResponse = await _context.Users
+                .AsNoTracking()
+                .FirstOrDefaultAsync(u => u.Email == email);
+            return dbResponse;
+        }
         public async Task<List<User>> GetActive()
         {
             return await _context.Users

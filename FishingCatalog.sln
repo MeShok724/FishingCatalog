@@ -13,8 +13,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FishingCatalog.msUser", "Fi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FishingCatalog.msCart", "FishingCatalog.msCart\FishingCatalog.msCart.csproj", "{A7346A7B-3754-43BC-8F98-0A423CC2F00C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FishinfCatalog.msAuthorization", "FishinfCatalog.msAuthorization\FishinfCatalog.msAuthorization.csproj", "{ECF4D848-3490-48EE-BBD7-109AD5F0800D}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,10 +39,6 @@ Global
 		{A7346A7B-3754-43BC-8F98-0A423CC2F00C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A7346A7B-3754-43BC-8F98-0A423CC2F00C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A7346A7B-3754-43BC-8F98-0A423CC2F00C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{ECF4D848-3490-48EE-BBD7-109AD5F0800D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{ECF4D848-3490-48EE-BBD7-109AD5F0800D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{ECF4D848-3490-48EE-BBD7-109AD5F0800D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{ECF4D848-3490-48EE-BBD7-109AD5F0800D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

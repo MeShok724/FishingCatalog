@@ -1,3 +1,4 @@
+using FishingCatalog.msUser.Infrastructure;
 using FishingCatalog.msUser.Repositories;
 using FishingCatalog.Postgres;
 using Microsoft.EntityFrameworkCore;
@@ -16,6 +17,8 @@ builder.Services.AddDbContext<FishingCatalogDbContext>(
 
 builder.Services.AddScoped<UserRepository>();
 builder.Services.AddScoped<RoleRepository>();
+builder.Services.Configure<JwtOptions>(configuration.GetSection("JwtOptions"));
+builder.Services.AddScoped<JwtProvider>();
 
 var app = builder.Build();
 
