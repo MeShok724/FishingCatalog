@@ -1,13 +1,16 @@
 ﻿using FishingCatalog.msUser.Contracts;
 using FishingCatalog.msUser.Infrastructure;
 using FishingCatalog.msUser.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 
 namespace FishinfCatalog.msAuthorization.Controllers
 {
     [ApiController]
+    [AllowAnonymous]
     [Route("[controller]")]
-    public class AuthorizationController(UserRepository userRepository, JwtProvider jwtProvider) : Controller
+    public class AuthenticationController(UserRepository userRepository, JwtProvider jwtProvider) : Controller
     {
         private readonly UserRepository _userRepos = userRepository;
         private readonly JwtProvider _jwtProvider = jwtProvider;
@@ -24,6 +27,7 @@ namespace FishinfCatalog.msAuthorization.Controllers
                 return BadRequest("Wrong password");
 
             var token = _jwtProvider.GenerateToken(user);
+            HttpContext.Response.Cookies.Append("token", token);
             return Ok(token);
         }
     }

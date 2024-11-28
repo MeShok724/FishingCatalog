@@ -1,7 +1,9 @@
+using FishingCatalog.msUser.Extensions;
 using FishingCatalog.msUser.Infrastructure;
 using FishingCatalog.msUser.Repositories;
 using FishingCatalog.Postgres;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -20,6 +22,16 @@ builder.Services.AddScoped<RoleRepository>();
 builder.Services.Configure<JwtOptions>(configuration.GetSection("JwtOptions"));
 builder.Services.AddScoped<JwtProvider>();
 
+builder.Services.AddAuthentication(
+    builder.Services.BuildServiceProvider().GetRequiredService<IOptions<JwtOptions>>()
+);
+builder.Services.AddAuthorization(options =>
+{
+    options.FallbackPolicy = new Microsoft.AspNetCore.Authorization.AuthorizationPolicyBuilder()
+        .RequireAuthenticatedUser()
+        .Build();
+});
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -28,9 +40,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
-
+app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseHttpsRedirection();
 
 app.MapControllers();
 

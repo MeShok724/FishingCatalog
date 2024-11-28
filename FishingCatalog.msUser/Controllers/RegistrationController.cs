@@ -1,11 +1,13 @@
 ﻿using FishingCatalog.msUser.Contracts;
 using FishingCatalog.msUser.Infrastructure;
 using FishingCatalog.msUser.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FishingCatalog.msUser.Controllers
 {
     [ApiController]
+    [AllowAnonymous]
     [Route("[controller]")]
     public class RegistrationController(UserRepository userRepository) : Controller
     {
