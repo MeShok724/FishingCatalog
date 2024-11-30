@@ -3,6 +3,7 @@ using System;
 using FishingCatalog.Postgres;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FishingCatalog.Postgres.Migrations
 {
     [DbContext(typeof(FishingCatalogDbContext))]
-    partial class FishingCatalogDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241130142914_withFeedback2")]
+    partial class withFeedback2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

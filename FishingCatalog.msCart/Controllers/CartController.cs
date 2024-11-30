@@ -23,7 +23,7 @@ namespace FishingCatalog.msCart.Controllers
             return Ok(await _cartRepository.GetById(id));
         }
         [HttpGet("byUser/{userId:Guid}")]
-        public async Task<ActionResult<List<Cart>>> GetByRole(Guid userId)
+        public async Task<ActionResult<List<Cart>>> GetByUser(Guid userId)
         {
             return Ok( await _cartRepository.GetByUserId(userId));
         }

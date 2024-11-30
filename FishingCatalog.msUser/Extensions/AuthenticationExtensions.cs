@@ -33,6 +33,7 @@ namespace FishingCatalog.msUser.Extensions
                             return Task.CompletedTask;
                         }
                     };
+
                 });
         }
     }

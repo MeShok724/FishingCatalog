@@ -10,6 +10,7 @@ namespace FishingCatalog.Postgres
         public DbSet<Product> Products { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
+        public DbSet<Feedback> Feedbacks { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -17,6 +18,7 @@ namespace FishingCatalog.Postgres
             modelBuilder.ApplyConfiguration(new RoleConfiguretion());
             modelBuilder.ApplyConfiguration(new ProductConfiguretion());
             modelBuilder.ApplyConfiguration(new CartConfiguretion());
+            modelBuilder.ApplyConfiguration(new FeedbackConfigurating());
             base.OnModelCreating(modelBuilder);
         }
     }
