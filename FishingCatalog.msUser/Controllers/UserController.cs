@@ -1,6 +1,7 @@
 ﻿using FishinfCatalog.msAuthorization;
 using FishingCatalog.Core;
 using FishingCatalog.msUser.Contracts;
+using FishingCatalog.msUser.Infrastructure;
 using FishingCatalog.msUser.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,9 +9,10 @@ namespace FishingCatalog.msUser.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class UserController(UserRepository userRepository) : Controller
+    public class UserController(UserRepository userRepository, RabbitMQService rabbitMQService) : Controller
     {
         private readonly UserRepository _userRepos = userRepository;
+        private readonly RabbitMQService _rabbitMQService = rabbitMQService;
 
         [HttpGet]
         public async Task<ActionResult<List<User>>> Get()
@@ -111,6 +113,7 @@ namespace FishingCatalog.msUser.Controllers
         public async Task<ActionResult<Guid>> Delete(Guid id)
         {
             var dbResp = await _userRepos.Delete(id);
+            await _rabbitMQService.SendGuidAsync(id);
             return Ok(dbResp);
         }
     }

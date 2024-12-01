@@ -9,7 +9,12 @@
   <ItemGroup>
     <PackageReference Include="MailKit" Version="4.8.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="RabbitMQ.Client" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FishingCatalog.Core\FishingCatalog.Core.csproj" />
   </ItemGroup>
 
 </Project>

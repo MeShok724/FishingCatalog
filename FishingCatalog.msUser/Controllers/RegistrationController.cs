@@ -9,9 +9,10 @@ namespace FishingCatalog.msUser.Controllers
     [ApiController]
     [AllowAnonymous]
     [Route("[controller]")]
-    public class RegistrationController(UserRepository userRepository) : Controller
+    public class RegistrationController(UserRepository userRepository, RabbitMQService rabbitMQService) : Controller
     {
         private readonly UserRepository _userRepos = userRepository;
+        private readonly RabbitMQService _rabbitMQService = rabbitMQService;
 
         [HttpPost]
         public async Task<ActionResult<Guid>> Registrate([FromBody] RegistrationRequest userRequest)
@@ -42,7 +43,10 @@ namespace FishingCatalog.msUser.Controllers
             if (!string.IsNullOrEmpty(reposResp.Item2))
                 return BadRequest(reposResp.Item2);
             else
+            {
+                await _rabbitMQService.SendMessageAsync(new Core.EmailMessage(newUser.Item1.Email, "Вы успешно зарегестрированы", "Поздравляем с успешной регистрацией на нашем сайте"));
                 return Ok(newUser.Item1.Id);
+            }
         }
     }
 }

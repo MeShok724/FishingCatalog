@@ -21,18 +21,25 @@ builder.Services.AddScoped<UserRepository>();
 builder.Services.AddScoped<RoleRepository>();
 builder.Services.Configure<JwtOptions>(configuration.GetSection("JwtOptions"));
 builder.Services.AddScoped<JwtProvider>();
+builder.Services.AddSingleton<RabbitMQService>();
 
 builder.Services.AddAuthentication(
     builder.Services.BuildServiceProvider().GetRequiredService<IOptions<JwtOptions>>()
 );
-builder.Services.AddAuthorization(options =>
-{
-    options.FallbackPolicy = new Microsoft.AspNetCore.Authorization.AuthorizationPolicyBuilder()
-        .RequireAuthenticatedUser()
-        .Build();
-});
+//builder.Services.AddAuthorization(options =>
+//{
+//    options.FallbackPolicy = new Microsoft.AspNetCore.Authorization.AuthorizationPolicyBuilder()
+//        .RequireAuthenticatedUser()
+//        .Build();
+//});
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var rabbitMQService = scope.ServiceProvider.GetRequiredService<RabbitMQService>();
+    await rabbitMQService.InitializeAsync();
+}
 
 if (app.Environment.IsDevelopment())
 {
@@ -40,7 +47,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseAuthentication();
+//app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseHttpsRedirection();

@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace FishingCatalog.msNotification
+namespace FishingCatalog.msNotification.MessageBroker
 {
 
     public class RabbitMQBackgroundService(RabbitMQService rabbitMQService) : IHostedService

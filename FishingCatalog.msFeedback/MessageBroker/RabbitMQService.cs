@@ -1,16 +1,19 @@
 ﻿using System;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
+using FishingCatalog.Core;
+using FishingCatalog.msFeedback.Repositories;
 using Microsoft.EntityFrameworkCore.Metadata;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 
-namespace FishingCatalog.msNotification
+namespace FishingCatalog.msCart.MessageBroker
 {
-    public class RabbitMQService:IDisposable
+    public class RabbitMQService(FeedbackRepository feedbackRepository) : IDisposable
     {
+        private readonly FeedbackRepository _feedbackRepository = feedbackRepository;
         private IConnection _connection;
-        private IChannel _registrationChannel;
         private IChannel _feedbackChannel;
 
         public async Task InitializeAsync()
@@ -20,14 +23,6 @@ namespace FishingCatalog.msNotification
 
             // Устанавливаем соединение (одно для всех каналов)
             _connection = await factory.CreateConnectionAsync();
-
-            // Канал для очереди "registrationQueue"
-            _registrationChannel = await _connection.CreateChannelAsync();
-            await _registrationChannel.QueueDeclareAsync(queue: "registrationQueue",
-                                              durable: false,
-                                              exclusive: false,
-                                              autoDelete: false,
-                                              arguments: null);
 
             // Канал для очереди "feedbackQueue"
             _feedbackChannel = await _connection.CreateChannelAsync();
@@ -41,31 +36,47 @@ namespace FishingCatalog.msNotification
 
         public void StartListening()
         {
-            StartListeningToQueue(_registrationChannel, "registrationQueue");
             StartListeningToQueue(_feedbackChannel, "feedbackQueue");
         }
+
+
 
         private void StartListeningToQueue(IChannel channel, string queueName)
         {
             var consumer = new AsyncEventingBasicConsumer(channel);
-            consumer.ReceivedAsync += (model, ea) =>
+            consumer.ReceivedAsync += async (model, ea) =>
             {
                 var body = ea.Body.ToArray();
-                var message = Encoding.UTF8.GetString(body);
-                Console.WriteLine($"[{queueName}] Received: {message}");
-
-                // Здесь обработайте сообщение
-                return Task.CompletedTask;
+                var messageJson = Encoding.UTF8.GetString(body);
+                Console.WriteLine($"[{queueName}] Received: {messageJson}");
+                Guid userId;
+                try
+                {
+                    userId = Guid.Parse(messageJson);
+                    var res = await _feedbackRepository.DeleteAllByUserId(userId);
+                    if (res != Guid.Empty)
+                    {
+                        Console.WriteLine("Feedbacks were removed successfully");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Error to delete feedbacks");
+                    }
+                }
+                catch
+                {
+                    Console.WriteLine("Error to parse Guid");
+                }
+                
             };
 
-            channel.BasicConsumeAsync(queue: "registrationQueue",
+            channel.BasicConsumeAsync(queue:   queueName,
                                                autoAck: true,
                                                consumer: consumer);
         }
 
         public void Dispose()
         {
-            _registrationChannel?.Dispose();
             _feedbackChannel?.Dispose();
             _connection?.Dispose();
         }
