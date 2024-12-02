@@ -10,9 +10,9 @@ using RabbitMQ.Client.Events;
 
 namespace FishingCatalog.msCart.MessageBroker
 {
-    public class RabbitMQService(FeedbackRepository feedbackRepository) : IDisposable
+    public class RabbitMQService(IServiceScopeFactory scopeFactory) : IDisposable
     {
-        private readonly FeedbackRepository _feedbackRepository = feedbackRepository;
+        private readonly IServiceScopeFactory _scopeFactory = scopeFactory;
         private IConnection _connection;
         private IChannel _feedbackChannel;
 
@@ -53,21 +53,18 @@ namespace FishingCatalog.msCart.MessageBroker
                 try
                 {
                     userId = Guid.Parse(messageJson);
-                    var res = await _feedbackRepository.DeleteAllByUserId(userId);
-                    if (res != Guid.Empty)
-                    {
-                        Console.WriteLine("Feedbacks were removed successfully");
-                    }
-                    else
-                    {
-                        Console.WriteLine("Error to delete feedbacks");
-                    }
                 }
                 catch
                 {
                     Console.WriteLine("Error to parse Guid");
+                    return;
                 }
-                
+                using (var scope = _scopeFactory.CreateScope())
+                {
+                    var feedbackRepository = scope.ServiceProvider.GetRequiredService<FeedbackRepository>();
+                    await feedbackRepository.DeleteAllByUserId(userId);
+                    Console.WriteLine("Feedbacks were removed");
+                }
             };
 
             channel.BasicConsumeAsync(queue:   queueName,

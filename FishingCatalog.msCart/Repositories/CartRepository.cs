@@ -4,8 +4,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FishingCatalog.msCart.Repositories
 {
+
     public class CartRepository(FishingCatalogDbContext dbContext)
     {
+
         private readonly FishingCatalogDbContext _context = dbContext;
 
         public async Task<List<Cart>> GetAll()

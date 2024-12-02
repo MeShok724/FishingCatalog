@@ -1,6 +1,4 @@
-﻿
-
-namespace FishingCatalog.msCart.MessageBroker
+﻿namespace FishingCatalog.msCart.MessageBroker
 {
 
     public class RabbitMQBackgroundService(RabbitMQService rabbitMQService) : IHostedService

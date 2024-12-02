@@ -15,13 +15,14 @@ builder.Services.AddDbContext<FishingCatalogDbContext>(
         options.UseNpgsql(configuration.GetConnectionString(nameof(FishingCatalogDbContext)));
     });
 builder.Services.AddScoped<CartRepository>();
-builder.Services.AddScoped<RabbitMQService>();
-//builder.Services.AddHostedService<RabbitMQBackgroundService>();
+builder.Services.AddSingleton<RabbitMQService>();
+builder.Services.AddHostedService<RabbitMQBackgroundService>();
 
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
 {
+    Console.WriteLine("Initalize broker");
     var rabbitMQService = scope.ServiceProvider.GetRequiredService<RabbitMQService>();
     await rabbitMQService.InitializeAsync();
 }

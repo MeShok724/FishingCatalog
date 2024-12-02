@@ -1,15 +1,17 @@
 ﻿using System.Text;
 using FishingCatalog.msCart.Repositories;
+using FishingCatalog.Postgres;
+using Microsoft.EntityFrameworkCore;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 
 namespace FishingCatalog.msCart.MessageBroker
 {
-    public class RabbitMQService(CartRepository cartRepository) : IDisposable
+    public class RabbitMQService(IServiceScopeFactory scopeFactory) : IDisposable
     {
-        private readonly CartRepository _cartRepository = cartRepository;
         private IConnection _connection;
         private IChannel _cartChannel;
+        private readonly IServiceScopeFactory _scopeFactory = scopeFactory;
 
         public async Task InitializeAsync()
         {
@@ -26,7 +28,7 @@ namespace FishingCatalog.msCart.MessageBroker
                                           exclusive: false,
                                           autoDelete: false,
                                           arguments: null);
-
+            
         }
 
         public void StartListening()
@@ -47,25 +49,27 @@ namespace FishingCatalog.msCart.MessageBroker
                 Guid userId;
                 try
                 {
+                    Console.WriteLine("Parsing");
                     userId = Guid.Parse(messageJson);
-                    var res = await _cartRepository.DeleteAllByUserId(userId);
-                    if (res != Guid.Empty)
-                    {
-                        Console.WriteLine("Carts were removed successfully");
-                    }
-                    else
-                    {
-                        Console.WriteLine("Error to delete carts");
-                    }
+                    Console.WriteLine("Parsed successfully");
                 }
                 catch
                 {
                     Console.WriteLine("Error to parse Guid");
+                    return;
                 }
-                
+                Guid res = Guid.Empty;
+                using (var scope = _scopeFactory.CreateScope())
+                {
+                    Console.WriteLine("Getting repository");
+                    var cartRepository = scope.ServiceProvider.GetRequiredService<CartRepository>();
+                    Console.WriteLine("Deleting carts");
+                    res = await cartRepository.DeleteAllByUserId(userId);
+                    Console.WriteLine("Carts were removed");
+                }
             };
 
-            channel.BasicConsumeAsync(queue:   queueName,
+            channel.BasicConsumeAsync(queue: "cartQueue",
                                                autoAck: true,
                                                consumer: consumer);
         }
