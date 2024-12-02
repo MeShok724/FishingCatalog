@@ -3,6 +3,16 @@ using FishingCatalog.Postgres;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowReactApp", policy =>
+    {
+        policy.WithOrigins("http://localhost:5173") // URL фронтенда
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
 var configuration = builder.Configuration;
 
 builder.Services.AddControllers();
@@ -17,6 +27,7 @@ builder.Services.AddDbContext<FishingCatalogDbContext>(
 builder.Services.AddScoped<ProductRepository>();
 
 var app = builder.Build();
+app.UseCors("AllowReactApp");
 
 if (app.Environment.IsDevelopment())
 {

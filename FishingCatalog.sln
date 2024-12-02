@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FishingCatalog.msCart", "Fi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FishingCatalog.msFeedback", "FishingCatalog.msFeedback\FishingCatalog.msFeedback.csproj", "{67F95DCB-C0E8-4CFB-B836-1D86700B9D22}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FishingCatalog.msNotification", "FishingCatalog.msNotification\FishingCatalog.msNotification.csproj", "{47A47F75-9F71-4BED-A50D-463C99ED44F6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FishingCatalog.msNotification", "FishingCatalog.msNotification\FishingCatalog.msNotification.csproj", "{47A47F75-9F71-4BED-A50D-463C99ED44F6}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "fishingcatalog.client", "FishingCatalog.Client\fishingcatalog.client.esproj", "{C0EA4559-642D-4411-948D-2C75053B7EBA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,12 @@ Global
 		{47A47F75-9F71-4BED-A50D-463C99ED44F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47A47F75-9F71-4BED-A50D-463C99ED44F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{47A47F75-9F71-4BED-A50D-463C99ED44F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0EA4559-642D-4411-948D-2C75053B7EBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0EA4559-642D-4411-948D-2C75053B7EBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0EA4559-642D-4411-948D-2C75053B7EBA}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{C0EA4559-642D-4411-948D-2C75053B7EBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0EA4559-642D-4411-948D-2C75053B7EBA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0EA4559-642D-4411-948D-2C75053B7EBA}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
