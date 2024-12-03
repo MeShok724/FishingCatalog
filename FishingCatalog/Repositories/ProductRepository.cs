@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FishingCatalog.msCatalog.Repositories
 {
-    public class ProductRepository(FishingCatalogDbContext dbContext)
+    public class ProductRepository(FishingCatalogDbContext dbContext): IProductRepository
     {
         private readonly FishingCatalogDbContext _context = dbContext;
 

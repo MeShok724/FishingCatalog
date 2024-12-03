@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FishingCatalog.msUser.Repositories
 {
-    public class UserRepository(FishingCatalogDbContext dbContext)
+    public class UserRepository(FishingCatalogDbContext dbContext): IUserRepository
     {
         private readonly FishingCatalogDbContext _context = dbContext;
 

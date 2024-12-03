@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FishingCatalog.msFeedback.Repositories
 {
-    public class FeedbackRepository(FishingCatalogDbContext dbContext)
+    public class FeedbackRepository(FishingCatalogDbContext dbContext) : IFeedbackRepository
     {
         private readonly FishingCatalogDbContext _context = dbContext;
 

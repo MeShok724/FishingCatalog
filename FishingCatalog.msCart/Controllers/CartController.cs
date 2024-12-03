@@ -7,9 +7,9 @@ namespace FishingCatalog.msCart.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class CartController(CartRepository cartRepository) : Controller
+    public class CartController(ICartRepository cartRepository) : Controller
     {
-        private readonly CartRepository _cartRepository = cartRepository;
+        private readonly ICartRepository _cartRepository = cartRepository;
 
         [HttpGet]
         public async Task<ActionResult<List<Cart>>> Get()

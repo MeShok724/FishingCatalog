@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FishingCatalog.msUser.Repositories
 {
-    public class RoleRepository(FishingCatalogDbContext dbContext)
+    public class RoleRepository(FishingCatalogDbContext dbContext): IRoleRepository
     {
         private readonly FishingCatalogDbContext _context = dbContext;
         public async Task<List<Role>> GetAll()

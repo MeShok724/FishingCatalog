@@ -14,7 +14,7 @@ builder.Services.AddDbContext<FishingCatalogDbContext>(
     {
         options.UseNpgsql(configuration.GetConnectionString(nameof(FishingCatalogDbContext)));
     });
-builder.Services.AddScoped<CartRepository>();
+builder.Services.AddScoped<ICartRepository, CartRepository>();
 builder.Services.AddSingleton<RabbitMQService>();
 builder.Services.AddHostedService<RabbitMQBackgroundService>();
 

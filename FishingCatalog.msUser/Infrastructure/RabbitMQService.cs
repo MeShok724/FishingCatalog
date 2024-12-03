@@ -8,7 +8,7 @@ using System.Threading.Channels;
 
 namespace FishingCatalog.msUser.Infrastructure
 {
-    public class RabbitMQService:IDisposable
+    public class RabbitMQService : IDisposable, IRabbitMQService
     {
         private IConnection _connection;
         private IChannel _registrationChannel;

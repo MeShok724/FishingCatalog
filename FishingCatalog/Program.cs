@@ -24,7 +24,7 @@ builder.Services.AddDbContext<FishingCatalogDbContext>(
         options.UseNpgsql(configuration.GetConnectionString(nameof(FishingCatalogDbContext)));
     });
 
-builder.Services.AddScoped<ProductRepository>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
 var app = builder.Build();
 app.UseCors("AllowReactApp");

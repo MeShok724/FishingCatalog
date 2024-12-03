@@ -7,9 +7,9 @@ namespace FishingCatalog.msUser.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class RoleController(RoleRepository roleRepository) : Controller
+    public class RoleController(IRoleRepository roleRepository) : Controller
     {
-        private readonly RoleRepository _roleRepos = roleRepository;
+        private readonly IRoleRepository _roleRepos = roleRepository;
 
         [HttpGet]
         public async Task<ActionResult<List<Role>>> GetRoles()

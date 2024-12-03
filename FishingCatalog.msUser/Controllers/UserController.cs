@@ -9,16 +9,16 @@ namespace FishingCatalog.msUser.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class UserController(UserRepository userRepository, RabbitMQService rabbitMQService) : Controller
+    public class UserController(IUserRepository userRepository, IRabbitMQService rabbitMQService) : Controller
     {
-        private readonly UserRepository _userRepos = userRepository;
-        private readonly RabbitMQService _rabbitMQService = rabbitMQService;
+        private readonly IUserRepository _userRepos = userRepository;
+        private readonly IRabbitMQService _rabbitMQService = rabbitMQService;
 
         [HttpGet]
         public async Task<ActionResult<List<User>>> Get()
         {
             var dbResp = await _userRepos.GetAll();
-            var response = dbResp.Select(b => new UserResponse(b.Id, b.Name, b.Email, b.PasswordHash, b.CreatedAt, b.LastLogin, b.IsActive, b.RoleId));
+            var response = dbResp.Select(b => new UserResponse(b.Id, b.Name, b.Email, b.PasswordHash, b.CreatedAt, b.LastLogin, b.IsActive, b.RoleId)).ToList();
             return Ok(response);
         }
         [HttpGet("{id:Guid}")]
@@ -40,7 +40,7 @@ namespace FishingCatalog.msUser.Controllers
         {
             var dbResp = await _userRepos.GetByRole(role);
             var resp = dbResp.Select(p => new UserResponse(
-                p.Id, p.Name, p.Email, p.PasswordHash, p.CreatedAt, p.LastLogin, p.IsActive, p.RoleId));
+                p.Id, p.Name, p.Email, p.PasswordHash, p.CreatedAt, p.LastLogin, p.IsActive, p.RoleId)).ToList();
             return Ok(resp);
         }
 
@@ -56,7 +56,7 @@ namespace FishingCatalog.msUser.Controllers
                 dbResp = await _userRepos.SortByLastLoginTime(ask);
 
             var resp = dbResp.Select(p => new UserResponse(
-                p.Id, p.Name, p.Email, p.PasswordHash, p.CreatedAt, p.LastLogin, p.IsActive, p.RoleId));
+                p.Id, p.Name, p.Email, p.PasswordHash, p.CreatedAt, p.LastLogin, p.IsActive, p.RoleId)).ToList();
             return Ok(resp);
         }
 
@@ -65,7 +65,7 @@ namespace FishingCatalog.msUser.Controllers
         {
             var dbResp = await _userRepos.GetActive();
             var resp = dbResp.Select(p => new UserResponse(
-                p.Id, p.Name, p.Email, p.PasswordHash, p.CreatedAt, p.LastLogin, p.IsActive, p.RoleId));
+                p.Id, p.Name, p.Email, p.PasswordHash, p.CreatedAt, p.LastLogin, p.IsActive, p.RoleId)).ToList();
             return Ok(resp);
 
         }

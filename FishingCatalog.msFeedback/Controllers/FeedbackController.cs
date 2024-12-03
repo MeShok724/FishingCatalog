@@ -7,9 +7,9 @@ namespace FishingCatalog.msFeedback.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class FeedbackController(FeedbackRepository feedbackRepository) : Controller
+    public class FeedbackController(IFeedbackRepository feedbackRepository) : Controller
     {
-        private readonly FeedbackRepository _feedbackRepository = feedbackRepository;
+        private readonly IFeedbackRepository _feedbackRepository = feedbackRepository;
 
         [HttpGet]
         public async Task<ActionResult<List<Feedback>>> Get()

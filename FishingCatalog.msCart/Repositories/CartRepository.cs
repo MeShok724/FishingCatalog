@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 namespace FishingCatalog.msCart.Repositories
 {
 
-    public class CartRepository(FishingCatalogDbContext dbContext)
+    public class CartRepository(FishingCatalogDbContext dbContext) :ICartRepository
     {
 
         private readonly FishingCatalogDbContext _context = dbContext;

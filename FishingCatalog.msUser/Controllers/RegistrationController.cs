@@ -9,10 +9,10 @@ namespace FishingCatalog.msUser.Controllers
     [ApiController]
     [AllowAnonymous]
     [Route("[controller]")]
-    public class RegistrationController(UserRepository userRepository, RabbitMQService rabbitMQService) : Controller
+    public class RegistrationController(IUserRepository userRepository, IRabbitMQService rabbitMQService) : Controller
     {
-        private readonly UserRepository _userRepos = userRepository;
-        private readonly RabbitMQService _rabbitMQService = rabbitMQService;
+        private readonly IUserRepository _userRepos = userRepository;
+        private readonly IRabbitMQService _rabbitMQService = rabbitMQService;
 
         [HttpPost]
         public async Task<ActionResult<Guid>> Registrate([FromBody] RegistrationRequest userRequest)

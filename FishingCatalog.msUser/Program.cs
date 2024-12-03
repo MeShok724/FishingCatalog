@@ -17,15 +17,16 @@ builder.Services.AddDbContext<FishingCatalogDbContext>(
         options.UseNpgsql(configuration.GetConnectionString(nameof(FishingCatalogDbContext)));
     });
 
-builder.Services.AddScoped<UserRepository>();
-builder.Services.AddScoped<RoleRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IRoleRepository, RoleRepository>();
 builder.Services.Configure<JwtOptions>(configuration.GetSection("JwtOptions"));
 builder.Services.AddScoped<JwtProvider>();
-builder.Services.AddSingleton<RabbitMQService>();
+builder.Services.AddSingleton<IRabbitMQService, RabbitMQService>();
 
 builder.Services.AddAuthentication(
     builder.Services.BuildServiceProvider().GetRequiredService<IOptions<JwtOptions>>()
 );
+
 //builder.Services.AddAuthorization(options =>
 //{
 //    options.FallbackPolicy = new Microsoft.AspNetCore.Authorization.AuthorizationPolicyBuilder()

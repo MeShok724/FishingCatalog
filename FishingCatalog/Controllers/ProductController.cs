@@ -7,15 +7,15 @@ namespace FishingCatalog.msCatalog.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class ProductController(ProductRepository productRepository) : ControllerBase
+    public class ProductController(IProductRepository productRepository) : ControllerBase
     {
-        private readonly ProductRepository _productRepos = productRepository;
+        private readonly IProductRepository _productRepos = productRepository;
 
         [HttpGet]
         public async Task<ActionResult<List<ProductResponse>>> GetProducts()
         {
             var dbResp =  await _productRepos.GetAll();
-            var response = dbResp.Select(b => new ProductResponse(b.Id, b.Name, b.Price, b.Category, b.Description, b.Image));
+            var response = dbResp.Select(b => new ProductResponse(b.Id, b.Name, b.Price, b.Category, b.Description, b.Image)).ToList();
             return Ok(response);
         }
 
@@ -29,12 +29,12 @@ namespace FishingCatalog.msCatalog.Controllers
                 product.Category,
                 product.Description,
                 product.Image);
-            if (newProduct.Item2 != null)
+            if (!string.IsNullOrEmpty(newProduct.Item2))
             {
                 return BadRequest(newProduct.Item2);
             }
-            await _productRepos.Add(newProduct.Item1);
-            return Ok(newProduct.Item1.Id);
+            Guid dbResp = await _productRepos.Add(newProduct.Item1);
+            return Ok(dbResp);
         }
 
         [HttpGet("{id:Guid}")]
@@ -59,7 +59,7 @@ namespace FishingCatalog.msCatalog.Controllers
                 product.Category,
                 product.Description,
                 product.Image);
-            if (toUpdateProduct.Item2 != null)
+            if (!string.IsNullOrEmpty(toUpdateProduct.Item2))
             {
                 return BadRequest(toUpdateProduct.Item2);
             }
@@ -79,7 +79,7 @@ namespace FishingCatalog.msCatalog.Controllers
         {
             var dbResp = await _productRepos.GetByCategory(category);
             var resp = dbResp.Select(p => new ProductResponse(
-                p.Id, p.Name, p.Price, p.Category, p.Description, p.Image));
+                p.Id, p.Name, p.Price, p.Category, p.Description, p.Image)).ToList();
             return Ok(resp);
         }
         [HttpGet("{field}/{ask}")]
@@ -91,7 +91,7 @@ namespace FishingCatalog.msCatalog.Controllers
             else if (field == "name")
                 dbResp = await _productRepos.SortByName(ask);
             var resp = dbResp.Select(p => new ProductResponse(
-                p.Id, p.Name, p.Price, p.Category, p.Description, p.Image));
+                p.Id, p.Name, p.Price, p.Category, p.Description, p.Image)).ToList();
             return Ok(resp);
         }
     }

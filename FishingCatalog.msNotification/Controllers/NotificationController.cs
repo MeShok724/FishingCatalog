@@ -5,10 +5,12 @@ namespace FishingCatalog.msNotification.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class NotificationController : Controller
+    public class NotificationController(IEmailService emailService) : Controller
     {
+        private readonly IEmailService _emailService = emailService;
+
         [HttpPost]
-        public IActionResult SendToEmailList([FromBody] List<string> strings, [FromQuery] string subject, [FromQuery] string text)
+        public async Task<IActionResult> SendToEmailList([FromBody] List<string> strings, [FromQuery] string subject, [FromQuery] string text)
         {
             if (strings == null || strings.Count == 0)
             {
@@ -16,7 +18,7 @@ namespace FishingCatalog.msNotification.Controllers
             }
             foreach (string s in strings)
             {
-                EmailService.SendEmailAsync(s, subject, text);
+                await _emailService.SendEmailAsync(s, subject, text);
             }
             return Ok("Письма успешно разосланы");
         }

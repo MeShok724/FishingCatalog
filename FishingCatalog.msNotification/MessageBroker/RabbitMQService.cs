@@ -11,10 +11,11 @@ using RabbitMQ.Client.Events;
 
 namespace FishingCatalog.msNotification.MessageBroker
 {
-    public class RabbitMQService : IDisposable
+    public class RabbitMQService(IEmailService emailService) : IDisposable
     {
         private IConnection _connection;
         private IChannel _feedbackChannel;
+        private readonly IEmailService _emailService = emailService;
 
         public async Task InitializeAsync()
         {
@@ -59,7 +60,7 @@ namespace FishingCatalog.msNotification.MessageBroker
                     Console.WriteLine($"Subject: {emailMessage.Subject}");
                     Console.WriteLine($"Text: {emailMessage.Text}");
 
-                    await EmailService.SendEmailAsync(emailMessage.Email, emailMessage.Subject, emailMessage.Text);
+                    await _emailService.SendEmailAsync(emailMessage.Email, emailMessage.Subject, emailMessage.Text);
                 }
             };
 

@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 
 namespace FishingCatalog.msNotification.Infrastructure
 {
-    public class EmailService
+    public class EmailService : IEmailService
     {
-        public static async Task SendEmailAsync(string email, string subject, string message)
+        public async Task SendEmailAsync(string email, string subject, string message)
         {
             using var emailMessage = new MimeMessage();
             emailMessage.From.Add(new MailboxAddress("Администрация сайта", "mishakopytok@gmail.com"));
