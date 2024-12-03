@@ -21,7 +21,7 @@ namespace FishingCatalog.msUser.Controllers
         public async Task<ActionResult<Role>> GetByName(string name)
         {
             var dbResp = await _roleRepos.GetByName(name);
-            return Ok(dbResp);
+            return dbResp == Guid.Empty ? NotFound() : Ok(dbResp);
         }
 
         [HttpPost]

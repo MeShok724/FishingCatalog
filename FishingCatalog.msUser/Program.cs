@@ -20,7 +20,7 @@ builder.Services.AddDbContext<FishingCatalogDbContext>(
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IRoleRepository, RoleRepository>();
 builder.Services.Configure<JwtOptions>(configuration.GetSection("JwtOptions"));
-builder.Services.AddScoped<JwtProvider>();
+builder.Services.AddScoped<IJwtProvider, JwtProvider>();
 builder.Services.AddSingleton<IRabbitMQService, RabbitMQService>();
 
 builder.Services.AddAuthentication(

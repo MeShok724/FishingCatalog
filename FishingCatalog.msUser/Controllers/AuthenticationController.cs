@@ -10,10 +10,10 @@ namespace FishinfCatalog.msAuthorization.Controllers
     [ApiController]
     [AllowAnonymous]
     [Route("[controller]")]
-    public class AuthenticationController(IUserRepository userRepository, JwtProvider jwtProvider) : Controller
+    public class AuthenticationController(IUserRepository userRepository, IJwtProvider jwtProvider) : Controller
     {
         private readonly IUserRepository _userRepos = userRepository;
-        private readonly JwtProvider _jwtProvider = jwtProvider;
+        private readonly IJwtProvider _jwtProvider = jwtProvider;
 
         [HttpPost]
         public async Task<ActionResult<string>> Login([FromBody] AuthorizationRequest authorizationRequest)
